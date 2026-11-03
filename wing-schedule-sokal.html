@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LED Wing – সকালবেলার অনুষ্ঠান</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Galada&family=Hind+Siliguri:wght@500;700&display=swap"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        cursor: none;
+        background: #1a0508;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* portrait wing 4.83 x 8 ft (ratio 0.604) - never cropped */
+      .stage {
+        --u: calc(min(100vw, 60.375vh)/100);
+        position: relative;
+        width: min(100vw, 60.375vh);
+        height: min(165.63vw, 100vh);
+        overflow: hidden;
+        font-family: "Galada", "Hind Siliguri", "Noto Sans Bengali", serif;
+        color: #fff4dc;
+      }
+      .stage > * {
+        position: absolute;
+      }
+      .bl {
+        left: 0;
+        right: 0;
+        top: calc(var(--u) * 3.2);
+        text-align: center;
+        font-size: calc(var(--u) * 4.4);
+        line-height: 1.5;
+        letter-spacing: 0.03em;
+        background: linear-gradient(180deg, #fffaf0, #ffe3a0 55%, #f0b64a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(
+            0 calc(var(--u) * 0.25) calc(var(--u) * 0.5) #3a0a18
+          )
+          drop-shadow(0 0 calc(var(--u) * 1.4) #ffb34788);
+      }
+      .sub {
+        left: 0;
+        right: 0;
+        top: calc(var(--u) * 8.6);
+        padding: 0 calc(var(--u) * 5);
+        box-sizing: border-box;
+        text-align: center;
+        font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+        font-weight: 700;
+        font-size: calc(var(--u) * 3.1);
+        line-height: 1.55;
+        letter-spacing: 0.02em;
+        color: #fff3d2;
+        text-shadow: 0 calc(var(--u) * 0.2) calc(var(--u) * 0.5) #3a0a18cc;
+        opacity: 0.96;
+      }
+      .co {
+        width: calc(var(--u) * 11);
+        height: calc(var(--u) * 11);
+        pointer-events: none;
+      }
+      .co::after {
+        content: "";
+        position: absolute;
+        width: calc(var(--u) * 2.2);
+        height: calc(var(--u) * 2.2);
+        background: #f6c85f;
+        transform: rotate(45deg);
+        box-shadow: 0 0 calc(var(--u) * 1.2) #f6c85f;
+      }
+      .c1 {
+        left: calc(var(--u) * 2);
+        top: calc(var(--u) * 2);
+        border-top: calc(var(--u) * 0.6) solid #f6c85f;
+        border-left: calc(var(--u) * 0.6) solid #f6c85f;
+      }
+      .c1::after {
+        left: calc(var(--u) * -1.4);
+        top: calc(var(--u) * -1.4);
+      }
+      .c2 {
+        right: calc(var(--u) * 2);
+        top: calc(var(--u) * 2);
+        border-top: calc(var(--u) * 0.6) solid #f6c85f;
+        border-right: calc(var(--u) * 0.6) solid #f6c85f;
+      }
+      .c2::after {
+        right: calc(var(--u) * -1.4);
+        top: calc(var(--u) * -1.4);
+      }
+      .c3 {
+        left: calc(var(--u) * 2);
+        bottom: calc(var(--u) * 2);
+        border-bottom: calc(var(--u) * 0.6) solid #f6c85f;
+        border-left: calc(var(--u) * 0.6) solid #f6c85f;
+      }
+      .c3::after {
+        left: calc(var(--u) * -1.4);
+        bottom: calc(var(--u) * -1.4);
+      }
+      .c4 {
+        right: calc(var(--u) * 2);
+        bottom: calc(var(--u) * 2);
+        border-bottom: calc(var(--u) * 0.6) solid #f6c85f;
+        border-right: calc(var(--u) * 0.6) solid #f6c85f;
+      }
+      .c4::after {
+        right: calc(var(--u) * -1.4);
+        bottom: calc(var(--u) * -1.4);
+      }
+      .m {
+        border-radius: 50%;
+        background: radial-gradient(circle, #fff3c4 0, #ffd97a00 70%);
+        opacity: 0;
+        animation: mt linear infinite;
+      }
+      @keyframes mt {
+        0% {
+          transform: translate(0, 0);
+          opacity: 0;
+        }
+        15% {
+          opacity: 0.95;
+        }
+        100% {
+          transform: translate(var(--dx), calc(var(--u) * -60));
+          opacity: 0;
+        }
+      }
+      @keyframes up {
+        from {
+          opacity: 0;
+          transform: translateY(calc(var(--u) * 5));
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes pu {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      .sky {
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          #2a0a3a 0%,
+          #8a1a40 34%,
+          #ff7a3c 62%,
+          #ffc15a 86%,
+          #ffe39a 100%
+        );
+      }
+      .rays {
+        left: calc(var(--u) * -60);
+        top: calc(var(--u) * 20);
+        width: calc(var(--u) * 220);
+        height: calc(var(--u) * 220);
+        background: repeating-conic-gradient(#ffe9a626 0 3deg, #0000 3deg 9deg);
+        -webkit-mask-image: radial-gradient(circle, #000 5%, #0000 50%);
+        mask-image: radial-gradient(circle, #000 5%, #0000 50%);
+        animation: spin 150s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .whl {
+        left: calc(var(--u) * -18);
+        top: calc(var(--u) * 40);
+        width: calc(var(--u) * 136);
+        height: calc(var(--u) * 136);
+        opacity: 0.2;
+        animation: spin 90s linear infinite;
+      }
+      .hd {
+        left: calc(var(--u) * 6);
+        right: calc(var(--u) * 6);
+        top: calc(var(--u) * 14);
+        text-align: center;
+      }
+      .hd .t {
+        font-size: calc(var(--u) * 9.2);
+        line-height: 1.3;
+        letter-spacing: 0.015em;
+        padding-bottom: calc(var(--u) * 0.4);
+        background: linear-gradient(
+          180deg,
+          #fffdf6 0%,
+          #ffeeb4 40%,
+          #f6c85f 68%,
+          #e08b1e 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 calc(var(--u) * 0.3) calc(var(--u) * 0.6) #3a0a18)
+          drop-shadow(0 0 calc(var(--u) * 1.8) #ff9f2e88);
+      }
+      .hd::after {
+        content: "";
+        display: block;
+        width: calc(var(--u) * 54);
+        height: calc(var(--u) * 0.3);
+        margin: calc(var(--u) * 1.2) auto 0;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          #e3a72f00,
+          #e3a72f 22%,
+          #fff2c8 50%,
+          #e3a72f 78%,
+          #e3a72f00
+        );
+        box-shadow: 0 0 calc(var(--u) * 1.6) #ff9f2e88;
+      }
+      .vp {
+        left: 0;
+        right: 0;
+        top: calc(var(--u) * 28);
+        height: calc(var(--u) * 122);
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(
+          transparent,
+          #000 3%,
+          #000 97%,
+          transparent
+        );
+        mask-image: linear-gradient(
+          transparent,
+          #000 3%,
+          #000 97%,
+          transparent
+        );
+      }
+      .ls {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        will-change: transform;
+      }
+      .cx {
+        margin: 0 calc(var(--u) * 6) calc(var(--u) * 6);
+        box-sizing: border-box;
+        text-align: center;
+        background: linear-gradient(#fffaf0, #f7e2b4);
+        color: #4a0e1a;
+        border: calc(var(--u) * 0.35) solid #e3a72f;
+        border-radius: calc(var(--u) * 3.4);
+        padding: calc(var(--u) * 6.4) calc(var(--u) * 3.4) calc(var(--u) * 5);
+        box-shadow:
+          0 0 calc(var(--u) * 3.5) #ff9f2e77,
+          inset 0 0 0 calc(var(--u) * 0.45) #fffaf0,
+          inset 0 0 0 calc(var(--u) * 0.7) #e3a72f99;
+        position: relative;
+      }
+      .cx .r {
+        position: absolute;
+        left: 50%;
+        top: calc(var(--u) * -2.6);
+        transform: translateX(-50%);
+        white-space: nowrap;
+        background: linear-gradient(#7a1420, #4a0c16);
+        color: #ffe29a;
+        border: calc(var(--u) * 0.22) solid #e3a72f;
+        border-radius: 999px;
+        padding: calc(var(--u) * 0.5) calc(var(--u) * 3.6);
+        font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+        font-weight: 700;
+        font-size: calc(var(--u) * 3.2);
+        line-height: 1.5;
+        letter-spacing: 0.01em;
+      }
+      .cx .n {
+        font-size: calc(var(--u) * 6.2);
+        line-height: 1.6;
+        color: #5b0f1c;
+      }
+      .cx .n + .n {
+        margin-top: calc(var(--u) * 1.2);
+      }
+      .cx .d {
+        margin-top: calc(var(--u) * 1.6);
+        font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+        font-weight: 500;
+        font-size: calc(var(--u) * 3);
+        line-height: 1.6;
+        letter-spacing: 0.01em;
+        color: #9a4a12;
+      }
+      .ft {
+        left: calc(var(--u) * 5);
+        right: calc(var(--u) * 5);
+        bottom: calc(var(--u) * 4.6);
+        text-align: center;
+      }
+      .ft > span {
+        display: inline-block;
+        max-width: 100%;
+        box-sizing: border-box;
+        font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+        background: linear-gradient(#5c0f1b, #3a0a18);
+        border: calc(var(--u) * 0.22) solid #e3a72f;
+        border-radius: calc(var(--u) * 2.4);
+        padding: calc(var(--u) * 1.1) calc(var(--u) * 3.4);
+        box-shadow:
+          0 0 calc(var(--u) * 2.6) #ff9f2e66,
+          inset 0 0 0 calc(var(--u) * 0.3) #ffb34733;
+      }
+      .ft .dt {
+        display: block;
+        font-weight: 700;
+        font-size: calc(var(--u) * 3.8);
+        line-height: 1.45;
+        letter-spacing: 0.04em;
+        color: #ffe2a0;
+        text-shadow: 0 0 calc(var(--u) * 1.2) #ffb34788;
+      }
+      .ft .vn {
+        display: block;
+        margin-top: calc(var(--u) * 0.2);
+        font-weight: 500;
+        font-size: calc(var(--u) * 2.8);
+        line-height: 1.45;
+        letter-spacing: 0.02em;
+        color: #ffeccd;
+        opacity: 0.88;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage" id="st">
+      <div class="sky"></div>
+      <div class="rays"></div>
+      <svg class="whl" viewBox="0 0 100 100" fill="#ffe9a6" stroke="#ffe9a6">
+        <circle cx="50" cy="50" r="47" fill="none" stroke-width="2" />
+        <circle cx="50" cy="50" r="43" fill="none" stroke-width=".6" />
+        <g id="wsp" stroke="none"></g>
+        <circle cx="50" cy="50" r="7" fill="none" stroke-width="1.2" />
+      </svg>
+      <div class="bl">জয়তু বুদ্ধ সাসনম</div>
+      <div class="sub">
+        দানোত্তম শুভ কঠিন চীবরদান ও ফ্রাইডে ধাম্মা স্কুল ভবন উদ্বোধন
+      </div>
+      <div class="hd">
+        <div class="t">সকালবেলা</div>
+      </div>
+      <div class="vp" id="vp"><div class="ls" id="ls"></div></div>
+      <div class="ft">
+        <span>
+          <span class="dt">১৬ নভেম্বর ২০২৬, সোমবার</span>
+          <span class="vn">দুপচর তক্ষশীলা বৌদ্ধ বিহার</span>
+        </span>
+      </div>
+      <div class="co c1"></div>
+      <div class="co c2"></div>
+      <div class="co c3"></div>
+      <div class="co c4"></div>
+    </div>
+    <script>
+      var st = document.getElementById("st"),
+        R = Math.random,
+        i;
+      function dust(n, y0, y1, p) {
+        for (var k = 0; k < n; k++) {
+          var d = document.createElement("i");
+          d.className = "m";
+          var s = 0.4 + R() * 0.8;
+          d.style.cssText =
+            "left:" +
+            (4 + R() * 92) +
+            "%;top:calc(var(--u)*" +
+            (y0 + R() * (y1 - y0)) +
+            ");width:calc(var(--u)*" +
+            s +
+            ");height:calc(var(--u)*" +
+            s +
+            ");--dx:" +
+            (R() - 0.5) * 12 +
+            "px;animation-duration:" +
+            (12 + R() * 12) +
+            "s;animation-delay:-" +
+            R() * 22 +
+            "s";
+          (p || st).appendChild(d);
+        }
+      }
+      function fs() {
+        if (!document.fullscreenElement)
+          document.documentElement.requestFullscreen &&
+            document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+      }
+      document.addEventListener("dblclick", fs);
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "f" || e.key === "F") fs();
+      });
+      var D = [
+          [
+            "সভাপতি",
+            "সদ্ধর্মবারিধি প্রিয়ানন্দ মহাথের",
+            "অধ্যক্ষ, মায়ানী সুদর্শন বিহার,মিরসরাই ",
+          ],
+          [
+            "প্রধান অতিথি",
+            "ভদন্ত ধর্মপাল মহাথের",
+            "কার্যকরী সভাপতি, কুমিল্লা-নোয়াখালী সংঘরাজ ভিক্ষু সমিতি",
+          ],
+          [
+            "প্রধান জ্ঞাতি",
+            "ভদন্ত শরণসেন মহাথের",
+            "অধ্যক্ষ, তেকোটা সদ্ধর্ম বিকাশ বিহার,পটিয়া",
+          ],
+          [
+            "উদ্বোধক",
+            "ভদন্ত সাধনপ্রিয় মহাথের",
+            "অধ্যক্ষ, দুপচর তক্ষশীলা বৌদ্ধ বিহার",
+          ],
+          [
+            "প্রধান সদ্ধর্মদেশক",
+            "বাগ্মীশ্বর ড. দীপংকর মহাথের",
+            "অধ্যক্ষ, বন্দর বৌদ্ধ বিহার,চট্টগ্রাম ",
+          ],
+          [
+            "মুখ্য আলোচক",
+            "ভদন্ত ধর্মানন্দ থের",
+            "সাধারণ সম্পাদক, কুমিল্লা-নোয়াখালী সংঘরাজ ভিক্ষু সমিতি",
+          ],
+          [
+            "সদ্ধর্মদেশক",
+            "ভদন্ত শীলপ্রিয় থের|ভদন্ত বিশুদ্ধানন্দ থের|ভদন্ত রতনজ্যোতি থের",
+            "",
+          ],
+          [
+            "মঙ্গলাচরণ",
+            "ভদন্ত অমৃতানন্দ থের",
+            "অধ্যক্ষ, দমদমা শান্তি নিকেতন বৌদ্ধ বিহার,মিরসরাই",
+          ],
+          [
+            "স্বাগত ভাষণ",
+            "তাপস সিংহ",
+            "সহ-সভাপতি দুপচর তক্ষশীলা বৌদ্ধ বিহার উন্নয়ন ও সেবক কমিটি",
+          ],
+          [
+            "পঞ্চশীল প্রার্থনা",
+            "প্রজ্ঞা সিংহ",
+            "দুপচর ফ্রাইডে ধম্মা স্কুলের ছাত্রী",
+          ],
+        ],
+        ws = "";
+      for (i = 0; i < 24; i++)
+        ws +=
+          '<g transform="rotate(' +
+          i * 15 +
+          ' 50 50)"><path d="M49.5 43L50.5 43L50.3 9L49.7 9Z"/><circle cx="50" cy="7.4" r="1.9"/></g>';
+      document.getElementById("wsp").innerHTML = ws;
+      var ls = document.getElementById("ls"),
+        vp = document.getElementById("vp"),
+        items = [];
+      function card(r) {
+        return (
+          '<div class="cx"><div class="r">' +
+          r[0] +
+          "</div>" +
+          r[1]
+            .split("|")
+            .map(function (n) {
+              return '<div class="n">' + n + "</div>";
+            })
+            .join("") +
+          (r[2] ? '<div class="d">' + r[2] + "</div>" : "") +
+          "</div>"
+        );
+      }
+      ls.innerHTML = D.map(card).join("") + D.map(card).join("");
+      var H = 0,
+        U = 1,
+        y = 0,
+        lt = 0,
+        tops = [],
+        hs = [];
+      function meas() {
+        U = st.getBoundingClientRect().width / 100;
+        items = [].slice.call(ls.children);
+        tops = items.map(function (e) {
+          return e.offsetTop;
+        });
+        hs = items.map(function (e) {
+          return e.offsetHeight + parseFloat(getComputedStyle(e).marginBottom);
+        });
+        H = tops[D.length] - tops[0];
+      }
+      function tick(t) {
+        if (!lt) lt = t;
+        var dt = Math.min((t - lt) / 1000, 0.1);
+        lt = t;
+        y += 4.4 * U * dt;
+        if (y >= H) y -= H;
+        ls.style.transform = "translateY(" + -y + "px)";
+        var vh = vp.clientHeight,
+          mid = vh / 2;
+        for (var k = 0; k < items.length; k++) {
+          var c = tops[k] - y + hs[k] / 2,
+            f = Math.max(0, 1 - Math.abs(c - mid) / (vh * 0.5));
+          items[k].style.opacity = (0.74 + 0.26 * f).toFixed(2);
+          items[k].style.transform = "scale(" + (1 + 0.06 * f).toFixed(3) + ")";
+        }
+        requestAnimationFrame(tick);
+      }
+      window.addEventListener("load", function () {
+        meas();
+        y = -vp.clientHeight * 0.55;
+        requestAnimationFrame(tick);
+      });
+      window.addEventListener("resize", meas);
+      setTimeout(meas, 1500);
+      dust(26, 40, 160);
+    </script>
+  </body>
+</html>
